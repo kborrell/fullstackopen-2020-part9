@@ -1,17 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Gender, NewPatient } from './types';
+import { Entry, HealthCheckEntry, OccupationalHealthcareEntry, HospitalEntry } from './types';
 
-const toNewPatient = (object : any): NewPatient => {
-  const newPatient : NewPatient = {
-    name: parseName(object.name),
-    dateOfBirth: parseDateOfBirth(object.dateOfBirth),
-    gender: parseGender(object.gender),
-    occupation: parseOccupation(object.occupation),
-    ssn: parseSsn(object.ssn)
+const toNewEntry = (object : any): Entry => {
+  switch(object.type) {
+    case "HealthCheck":
+      return toNewHealthCheckEntry(object);
+    case "OccupationalHealthcare":
+      return toNewOccupationalHealthcareEntry(object);
+    case "Hospital":
+      return toNewHospitalEntry(object);
+    default:
+      throw Error("no allowed type");
+  }
+};
+
+const toNewHealthCheckEntry = (object: any): HealthCheckEntry => {
+  const addedEntry: HealthCheckEntry = {
+
   };
-  return newPatient;
+
+  return addedEntry;
 };
 
 const parseName = (name : any): string => {
@@ -62,4 +72,4 @@ const isGender = (param: any): param is Gender => {
   return Object.values(Gender).includes(param);
 };
 
-export default toNewPatient;
+export default toNewEntry;
