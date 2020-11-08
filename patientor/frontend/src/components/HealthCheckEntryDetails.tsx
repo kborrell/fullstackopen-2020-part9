@@ -22,7 +22,7 @@ const HealthCheckEntryDetails: React.FC<{ entry: HealthCheckEntry }> = ({ entry 
       case HealthCheckRating.CriticalRisk:
         return "red";
     }
-  }
+  };
 
   return(
     <Segment key={entry.id}>
